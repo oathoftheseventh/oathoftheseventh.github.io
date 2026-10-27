@@ -1,3 +1,6 @@
 /* Approved kingdom artwork: preserve every image's full composition. */
 .kingdom-cards .card{min-width:0}
 .kingdom-card-image{display:block;width:calc(100% + 64px);max-width:none;height:auto;aspect-ratio:3 / 2;object-fit:contain;background:var(--bg);margin:-32px -32px 28px;flex-shrink:0}
+
+/* Serapha has a wider original composition; use its natural height. */
+.kingdom-cards a[href="kingdoms/serapha.html"] .kingdom-card-image{aspect-ratio:auto}

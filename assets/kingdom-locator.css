@@ -1,5 +1,7 @@
 .kingdom-locator {
   position: relative;
+  display: grid;
+  place-items: center;
   container-type: size;
   height: 350px;
   padding: 0;
@@ -16,15 +18,10 @@
 }
 
 .kingdom-locator__atlas {
-  /* Fill the viewport at the source image's 3:2 ratio. Pan toward the
-     emblem, clamping at the image edges so the atlas always fills the panel. */
-  --atlas-width: max(100cqw, 150cqh);
-  --atlas-height: calc(var(--atlas-width) * 2 / 3);
-  position: absolute;
-  width: var(--atlas-width);
-  height: var(--atlas-height);
-  left: clamp(calc(100% - var(--atlas-width)), calc(50% - var(--atlas-width) * var(--x)), 0px);
-  top: clamp(calc(100% - var(--atlas-height)), calc(50% - var(--atlas-height) * var(--y)), 0px);
+  position: relative;
+  width: min(100cqw, 80cqh);
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .kingdom-locator__atlas img {
@@ -33,50 +30,73 @@
   height: auto;
 }
 
-.kingdom-locator__halo {
+.kingdom-locator__atlas .kingdom-locator__names {
   position: absolute;
-  left: calc(100% * var(--x));
-  top: calc(100% * var(--y));
-  width: 7.15%;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgb(255 220 150 / 46%);
-  border-radius: 50%;
-  box-shadow: 0 0 8px rgb(255 209 115 / 42%);
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
-.kingdom-locator__halo::before,
-.kingdom-locator__halo::after {
+.kingdom-locator__light {
+  position: absolute;
+  left: calc(100% * var(--x));
+  top: calc(100% * var(--y));
+  width: var(--light-width);
+  height: var(--light-height);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.kingdom-locator__light::before,
+.kingdom-locator__light::after {
   content: "";
   position: absolute;
-  inset: -1px;
-  border: 1px solid rgb(255 228 168 / 68%);
-  border-radius: inherit;
-  box-shadow: 0 0 6px rgb(255 211 118 / 32%);
-  animation: kingdom-locator-ripple 5.6s linear infinite;
+  inset: 0;
 }
 
-.kingdom-locator__halo::after {
-  animation-delay: -2.8s;
+.kingdom-locator__light::before {
+  background:
+    radial-gradient(ellipse at 37% 52%, rgb(255 185 77 / 69%), transparent 62%),
+    radial-gradient(ellipse at 59% 45%, rgb(255 221 133 / 82%), transparent 66%),
+    radial-gradient(ellipse at 50% 52%, rgb(224 131 36 / 72%), transparent 71%);
+  animation: kingdom-locator-shimmer 5.8s ease-in-out infinite;
 }
 
-@keyframes kingdom-locator-ripple {
-  0% { transform: scale(1); opacity: 0; }
-  22% { opacity: .75; }
-  100% { transform: scale(1.52); opacity: 0; }
+.kingdom-locator__light::after {
+  background:
+    radial-gradient(circle at 27% 56%, #ffd387 0 1px, transparent 3.5px),
+    radial-gradient(circle at 45% 37%, #ffecb3 0 1.2px, transparent 4px),
+    radial-gradient(circle at 55% 59%, #ffe5a1 0 1.5px, transparent 5px),
+    radial-gradient(circle at 67% 44%, #fff0c4 0 1px, transparent 4px),
+    radial-gradient(circle at 75% 58%, #ffd387 0 .8px, transparent 3px);
+  animation: kingdom-locator-embers 4.8s ease-in-out infinite;
+}
+
+@keyframes kingdom-locator-shimmer {
+  0%, 100% { transform: scale(.91) rotate(-5deg); opacity: .74; }
+  50% { transform: scale(1.08) rotate(5deg); opacity: 1; }
+}
+
+@keyframes kingdom-locator-embers {
+  0%, 100% { transform: translateY(6%); opacity: .2; }
+  55% { transform: translateY(-7%); opacity: .94; }
 }
 
 @media (max-width: 850px) {
   .kingdom-locator {
-    height: clamp(180px, 65vw, 350px);
+    height: clamp(270px, 90vw, 350px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kingdom-locator__halo::before,
-  .kingdom-locator__halo::after {
-    content: none;
+  .kingdom-locator__light::before {
     animation: none;
+    opacity: .9;
+  }
+
+  .kingdom-locator__light::after {
+    animation: none;
+    opacity: .65;
   }
 }

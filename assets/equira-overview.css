@@ -1,11 +1,11 @@
-/* Equira standalone chronicle — artwork space intentionally left empty. */
-.equira-reading-layout{display:grid;grid-template-columns:minmax(220px,40%) minmax(0,1fr);gap:clamp(26px,5vw,72px);margin:38px 0 90px;align-items:start}
-.equira-reading-art-space{min-height:570px;border:1px solid var(--line);background:var(--panel)}
+/* Equira overview reading page: only the chosen language is visible. */
+.equira-reading-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,38%);gap:clamp(26px,5vw,72px);margin:38px 0 90px;align-items:start}
 .equira-reading-text{min-width:0;max-width:760px}
 .equira-reading-text h1{margin:14px 0 30px}
 .equira-reading-text h3{font-size:clamp(23px,2.5vw,34px);margin:0 0 30px}
 .equira-reading-text p{line-height:1.9;margin:0 0 1.3em;font-size:clamp(14px,1.1vw,16px)}
-.equira-reading-tr{display:none}
-html[lang="tr"] .equira-reading-en{display:none}
-html[lang="tr"] .equira-reading-tr{display:block}
-@media(max-width:760px){.equira-reading-layout{grid-template-columns:1fr}.equira-reading-art-space{min-height:320px}}
+.equira-reading-art-space{min-height:570px;border:1px solid var(--line);background:var(--panel)}
+html:not([lang="tr"]) .equira-reading-page .equira-reading-tr{display:none!important}
+html[lang="tr"] .equira-reading-page .equira-reading-en{display:none!important}
+html[lang="tr"] .equira-reading-page .equira-reading-tr{display:block}
+@media(max-width:760px){.equira-reading-layout{grid-template-columns:1fr}.equira-reading-art{grid-row:2}.equira-reading-art-space{min-height:320px}}

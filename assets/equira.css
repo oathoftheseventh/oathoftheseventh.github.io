@@ -29,3 +29,13 @@ html[lang="tr"] .equira-page .equira-overview-tr { display: block; }
 .equira-page .equira-overview-copy { max-width: 72ch; }
 .equira-page .equira-overview-copy h3 { margin: 1.1rem 0 1.4rem; }
 .equira-page .equira-overview-copy p { margin: 0 0 1.15rem; line-height: 1.85; color: var(--ink); }
+
+/* Overview image tile opens the full chronicle below the image grid. */
+.equira-page #overview.equira-overview-card { background-image: linear-gradient(90deg, rgba(12,10,8,.66),rgba(12,10,8,.18)),url("equira/overview.png"); text-shadow:0 1px 4px rgba(0,0,0,.85); padding:0; }
+.equira-page .equira-overview-card-link { display:flex; flex-direction:column; justify-content:center; width:100%; min-height:190px; padding:30px; color:inherit; text-decoration:none; box-sizing:border-box; }
+.equira-page .equira-overview-card-link:hover,.equira-page .equira-overview-card-link:focus-visible { outline:2px solid var(--gold); outline-offset:-2px; }
+.equira-page .equira-card-read { font-size:12px; color:var(--ink); }
+.equira-page .equira-overview-article { margin-top:28px; padding:clamp(24px,4vw,50px); border:1px solid var(--line); background:rgba(19,17,16,.95); scroll-margin-top:30px; }
+.equira-page .equira-overview-article .equira-overview-copy { max-width:72ch; }
+.equira-page .equira-overview-article .equira-overview-copy p { margin:0 0 1.15rem; line-height:1.85; text-shadow:none; }
+.equira-page .equira-overview-article .equira-overview-copy h3 { margin:1rem 0 1.4rem; }

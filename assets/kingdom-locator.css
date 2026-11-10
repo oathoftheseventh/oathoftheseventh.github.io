@@ -20,7 +20,7 @@
 .kingdom-locator__atlas {
   position: relative;
   width: min(100cqw, 80cqh);
-  --atlas-pigment: saturate(.56) sepia(.18);
+  --atlas-pigment: saturate(.78) sepia(.09);
   isolation: isolate;
   overflow: hidden;
 }
@@ -32,14 +32,14 @@
 }
 
 .kingdom-locator__atlas > img:first-child {
-  filter: var(--atlas-pigment) brightness(.8);
+  filter: var(--atlas-pigment) brightness(.9);
 }
 
 .kingdom-locator__atlas .kingdom-locator__names {
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: .85;
+  opacity: .92;
   pointer-events: none;
 }
 
@@ -47,10 +47,9 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
+  opacity: .8;
   /* Reveal a warmer exposure of the same terrain through two soft,
      offset masks so the light retains the atlas's ink and relief. */
-  background: url("maps/avaris-locator-portrait.webp") center / 100% 100% no-repeat;
-  filter: var(--atlas-pigment) sepia(.12) brightness(1.13);
   mask-image:
     radial-gradient(
       ellipse calc(var(--light-width) * .57) calc(var(--light-height) * .52)
@@ -62,12 +61,37 @@
       at calc(100% * var(--x) + 3%) calc(100% * var(--y) - 2%),
       rgb(0 0 0 / 52%), transparent 80%
     );
-  animation: kingdom-locator-lantern 8.5s ease-in-out infinite;
 }
 
-@keyframes kingdom-locator-lantern {
-  0%, 100% { opacity: .55; }
-  50% { opacity: .92; }
+.kingdom-locator__light::before,
+.kingdom-locator__light::after {
+  content: "";
+  position: absolute;
+}
+
+.kingdom-locator__light::before {
+  inset: 0;
+  background: url("maps/avaris-locator-portrait.webp") center / 100% 100% no-repeat;
+  filter: var(--atlas-pigment) sepia(.09) brightness(1.15);
+}
+
+.kingdom-locator__light::after {
+  left: calc(100% * var(--x));
+  top: calc(100% * var(--y));
+  width: calc(var(--light-width) * .92);
+  height: calc(var(--light-height) * 1.15);
+  background:
+    radial-gradient(ellipse 26% 54% at 50% 50%, rgb(255 228 165 / 72%), transparent 94%),
+    radial-gradient(ellipse 48% 48% at 50% 50%, rgb(224 172 81 / 32%), transparent 92%);
+  mix-blend-mode: screen;
+  animation: kingdom-locator-sweep 5.8s ease-in-out infinite;
+}
+
+@keyframes kingdom-locator-sweep {
+  0% { transform: translate(-90%, -27%) rotate(-28deg); opacity: 0; }
+  20% { opacity: .8; }
+  46% { opacity: .94; }
+  78%, 100% { transform: translate(-10%, -73%) rotate(-28deg); opacity: 0; }
 }
 
 @media (max-width: 850px) {
@@ -77,8 +101,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kingdom-locator__light {
+  .kingdom-locator__light::after {
+    content: none;
     animation: none;
-    opacity: .76;
   }
 }

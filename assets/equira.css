@@ -20,3 +20,12 @@
 .equira-page #faith { --equira-art: url("equira/faith.png"); --equira-focus: 60% 45%; }
 .equira-page #history { --equira-art: url("equira/history.png"); --equira-focus: 55% 55%; }
 .equira-page #stories { --equira-art: url("equira/stories.png"); --equira-focus: 50% 58%; }
+
+/* Equira overview: long-form bilingual chronicle; only the selected language is shown. */
+.equira-page .equira-overview-tr { display: none; }
+html[lang="tr"] .equira-page .equira-overview-en { display: none; }
+html[lang="tr"] .equira-page .equira-overview-tr { display: block; }
+.equira-page #overview.equira-overview-entry { background-image: none; background-color: rgba(19, 17, 16, .95); text-shadow: none; }
+.equira-page .equira-overview-copy { max-width: 72ch; }
+.equira-page .equira-overview-copy h3 { margin: 1.1rem 0 1.4rem; }
+.equira-page .equira-overview-copy p { margin: 0 0 1.15rem; line-height: 1.85; color: var(--ink); }

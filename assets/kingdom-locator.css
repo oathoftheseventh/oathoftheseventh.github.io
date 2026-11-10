@@ -20,6 +20,7 @@
 .kingdom-locator__atlas {
   position: relative;
   width: min(100cqw, 80cqh);
+  --atlas-pigment: saturate(.56) sepia(.18);
   isolation: isolate;
   overflow: hidden;
 }
@@ -30,57 +31,43 @@
   height: auto;
 }
 
+.kingdom-locator__atlas > img:first-child {
+  filter: var(--atlas-pigment) brightness(.8);
+}
+
 .kingdom-locator__atlas .kingdom-locator__names {
   position: absolute;
   inset: 0;
   z-index: 1;
+  opacity: .85;
   pointer-events: none;
 }
 
 .kingdom-locator__light {
   position: absolute;
-  left: calc(100% * var(--x));
-  top: calc(100% * var(--y));
-  width: var(--light-width);
-  height: var(--light-height);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
-.kingdom-locator__light::before,
-.kingdom-locator__light::after {
-  content: "";
-  position: absolute;
   inset: 0;
+  pointer-events: none;
+  /* Reveal a warmer exposure of the same terrain through two soft,
+     offset masks so the light retains the atlas's ink and relief. */
+  background: url("maps/avaris-locator-portrait.webp") center / 100% 100% no-repeat;
+  filter: var(--atlas-pigment) sepia(.12) brightness(1.13);
+  mask-image:
+    radial-gradient(
+      ellipse calc(var(--light-width) * .57) calc(var(--light-height) * .52)
+      at calc(100% * var(--x) - 3%) calc(100% * var(--y) + 1%),
+      rgb(0 0 0 / 70%), transparent 83%
+    ),
+    radial-gradient(
+      ellipse calc(var(--light-width) * .46) calc(var(--light-height) * .57)
+      at calc(100% * var(--x) + 3%) calc(100% * var(--y) - 2%),
+      rgb(0 0 0 / 52%), transparent 80%
+    );
+  animation: kingdom-locator-lantern 8.5s ease-in-out infinite;
 }
 
-.kingdom-locator__light::before {
-  background:
-    radial-gradient(ellipse at 37% 52%, rgb(255 185 77 / 69%), transparent 62%),
-    radial-gradient(ellipse at 59% 45%, rgb(255 221 133 / 82%), transparent 66%),
-    radial-gradient(ellipse at 50% 52%, rgb(224 131 36 / 72%), transparent 71%);
-  animation: kingdom-locator-shimmer 5.8s ease-in-out infinite;
-}
-
-.kingdom-locator__light::after {
-  background:
-    radial-gradient(circle at 27% 56%, #ffd387 0 1px, transparent 3.5px),
-    radial-gradient(circle at 45% 37%, #ffecb3 0 1.2px, transparent 4px),
-    radial-gradient(circle at 55% 59%, #ffe5a1 0 1.5px, transparent 5px),
-    radial-gradient(circle at 67% 44%, #fff0c4 0 1px, transparent 4px),
-    radial-gradient(circle at 75% 58%, #ffd387 0 .8px, transparent 3px);
-  animation: kingdom-locator-embers 4.8s ease-in-out infinite;
-}
-
-@keyframes kingdom-locator-shimmer {
-  0%, 100% { transform: scale(.91) rotate(-5deg); opacity: .74; }
-  50% { transform: scale(1.08) rotate(5deg); opacity: 1; }
-}
-
-@keyframes kingdom-locator-embers {
-  0%, 100% { transform: translateY(6%); opacity: .2; }
-  55% { transform: translateY(-7%); opacity: .94; }
+@keyframes kingdom-locator-lantern {
+  0%, 100% { opacity: .55; }
+  50% { opacity: .92; }
 }
 
 @media (max-width: 850px) {
@@ -90,13 +77,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kingdom-locator__light::before {
+  .kingdom-locator__light {
     animation: none;
-    opacity: .9;
-  }
-
-  .kingdom-locator__light::after {
-    animation: none;
-    opacity: .65;
+    opacity: .76;
   }
 }

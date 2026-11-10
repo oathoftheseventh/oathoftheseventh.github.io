@@ -1,0 +1,22 @@
+/* Equira only: artwork fills the existing frames without affecting layout. */
+.equira-page .equira-artwork {
+  background: url("equira/hero.png") center 54% / cover no-repeat;
+}
+/* Preserve the placeholder's layout contribution and the original hero height. */
+.equira-page .equira-artwork > * { visibility: hidden; }
+.equira-page .entries > .entry {
+  background-image: linear-gradient(90deg, rgba(12, 10, 8, .66), rgba(12, 10, 8, .18)), var(--equira-art);
+  background-size: cover;
+  background-position: center, var(--equira-focus, center);
+  background-repeat: no-repeat;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .85);
+}
+.equira-page .entries > .entry .eyebrow,
+.equira-page .entries > .entry p { color: var(--ink); }
+.equira-page #overview { --equira-art: url("equira/overview.png"); --equira-focus: 53% 53%; }
+.equira-page #land-people { --equira-art: url("equira/land-people.png"); --equira-focus: 55% 55%; }
+.equira-page #culture { --equira-art: url("equira/culture.png"); --equira-focus: 50% 55%; }
+.equira-page #academy { --equira-art: url("equira/academy.png"); --equira-focus: 48% 45%; }
+.equira-page #faith { --equira-art: url("equira/faith.png"); --equira-focus: 60% 45%; }
+.equira-page #history { --equira-art: url("equira/history.png"); --equira-focus: 55% 55%; }
+.equira-page #stories { --equira-art: url("equira/stories.png"); --equira-focus: 50% 58%; }

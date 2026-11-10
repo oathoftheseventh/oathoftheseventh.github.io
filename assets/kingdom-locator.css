@@ -101,17 +101,19 @@
   height: 100%;
   pointer-events: none;
   fill: none;
-  stroke: #f8dda4;
-  stroke-width: 1;
+  stroke: #ebbc70;
+  stroke-width: 7;
   stroke-linejoin: round;
-  filter: drop-shadow(0 0 2px rgb(249 197 104 / 86%));
-  opacity: .66;
+  /* Blur the entire stroke so the path reads as light in the terrain. */
+  filter: blur(4px);
+  mix-blend-mode: screen;
+  opacity: .58;
   animation: kingdom-locator-outline 7s ease-in-out infinite;
 }
 
 @keyframes kingdom-locator-outline {
-  0%, 100% { opacity: .54; }
-  50% { opacity: .79; }
+  0%, 100% { opacity: .42; }
+  50% { opacity: .68; }
 }
 
 @media (max-width: 850px) {

@@ -1,0 +1,82 @@
+.kingdom-locator {
+  position: relative;
+  container-type: size;
+  height: 350px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.kingdom-locator h2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.kingdom-locator__atlas {
+  /* Fill the viewport at the source image's 3:2 ratio. Pan toward the
+     emblem, clamping at the image edges so the atlas always fills the panel. */
+  --atlas-width: max(100cqw, 150cqh);
+  --atlas-height: calc(var(--atlas-width) * 2 / 3);
+  position: absolute;
+  width: var(--atlas-width);
+  height: var(--atlas-height);
+  left: clamp(calc(100% - var(--atlas-width)), calc(50% - var(--atlas-width) * var(--x)), 0px);
+  top: clamp(calc(100% - var(--atlas-height)), calc(50% - var(--atlas-height) * var(--y)), 0px);
+}
+
+.kingdom-locator__atlas img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.kingdom-locator__halo {
+  position: absolute;
+  left: calc(100% * var(--x));
+  top: calc(100% * var(--y));
+  width: 7.15%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgb(255 220 150 / 46%);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgb(255 209 115 / 42%);
+  pointer-events: none;
+}
+
+.kingdom-locator__halo::before,
+.kingdom-locator__halo::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgb(255 228 168 / 68%);
+  border-radius: inherit;
+  box-shadow: 0 0 6px rgb(255 211 118 / 32%);
+  animation: kingdom-locator-ripple 5.6s linear infinite;
+}
+
+.kingdom-locator__halo::after {
+  animation-delay: -2.8s;
+}
+
+@keyframes kingdom-locator-ripple {
+  0% { transform: scale(1); opacity: 0; }
+  22% { opacity: .75; }
+  100% { transform: scale(1.52); opacity: 0; }
+}
+
+@media (max-width: 850px) {
+  .kingdom-locator {
+    height: clamp(180px, 65vw, 350px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kingdom-locator__halo::before,
+  .kingdom-locator__halo::after {
+    content: none;
+    animation: none;
+  }
+}
